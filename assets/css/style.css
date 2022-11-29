@@ -39,9 +39,6 @@ html{
     user-select: none;
     background-color: #fff;
 }
-.drawed{
-    background-color: black;
-}
 .menuBar{
     display: flex;
     flex-direction: column;
@@ -55,6 +52,16 @@ html{
     border-radius: 8px;
     height: 73.5%;
     gap: 32px;
+}
+.rainbow{
+    padding: 8px;
+    cursor: pointer;
+    font-family: 'Nerko One', cursive;
+    background-color: #C7BCA1;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 20px;
 }
 .reset{
     padding: 8px;

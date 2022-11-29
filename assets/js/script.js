@@ -3,6 +3,22 @@ let sliderValue = document.querySelectorAll('.sliderValue');
 let gridSize = slider.value;
 
 const container = document.querySelector('.container'); 
+createGridBoard(gridSize);
+slider.addEventListener('input', function(e){
+    sliderValue.forEach(textValue => textValue.textContent = slider.value);
+    gridSize = slider.value;
+    deleteGridBoard();  
+    createGridBoard(gridSize);  
+})
+let mousedown = false;
+document.body.addEventListener("mousedown", () => (mousedown = true));
+document.body.addEventListener("mouseup", () => (mousedown = false));
+
+resetButton();
+
+const rainbowBtn = document.querySelector('.rainbow');
+rainbowBtn.addEventListener('click', toggleRainbow);
+
 function createGridBoard(gridSize){
     for (let i = 0; i < gridSize; i++){
         let divRow = document.createElement('div');
@@ -17,35 +33,38 @@ function createGridBoard(gridSize){
         }
         container.appendChild(divRow);
     }
-    resetButton();
+    resetButton();  
 }
+
 function deleteGridBoard(){
     while (container.firstChild) {
         container.removeChild(container.lastChild);
-  }
+    }
 }
-createGridBoard(gridSize);
-slider.addEventListener('input', function(e){
-    sliderValue.forEach(textValue => textValue.textContent = slider.value);
-    gridSize = slider.value;
-    deleteGridBoard();  
-    createGridBoard(gridSize);  
-})
-let mousedown = false;
-document.body.addEventListener("mousedown", () => (mousedown = true));
-document.body.addEventListener("mouseup", () => (mousedown = false));
+
 function changeColor(e){
     // console.log(mousedown);
     if (e.type == 'mouseover' && !mousedown) return;
-    e.target.classList.add('drawed');
+    if (rainbowBtn.classList.contains('rainbowOn')) {
+        let red = Math.ceil(Math.random()*256);
+        let green = Math.ceil(Math.random()*256);
+        let blue = Math.ceil(Math.random()*256);
+        e.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+    }
+    else e.target.style.backgroundColor = 'black';
 }
 
 function resetButton(){
     const resetBtn = document.querySelector('.reset');
     const gridBoard = document.querySelectorAll('.gridBlock');
     resetBtn.addEventListener('click', function(e){
-        gridBoard.forEach(grid => grid.classList.remove('drawed'));
+        gridBoard.forEach(grid => grid.style.backgroundColor = 'white');
     })
 }
-resetButton();
 
+function toggleRainbow(){
+    rainbowBtn.classList.toggle('rainbowOn');
+    (rainbowBtn.classList.contains('rainbowOn'))?
+    rainbowBtn.textContent = "Rainbow: On" :
+    rainbowBtn.textContent = "Rainbow: Off";
+}
