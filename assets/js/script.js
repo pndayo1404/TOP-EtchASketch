@@ -20,6 +20,9 @@ document.body.addEventListener("mouseup", () => (mousedown = false));
 const rainbowBtn = document.querySelector('.rainbow'); //Rainbow button
 rainbowBtn.addEventListener('click', toggleRainbow);
 
+const gridBtn = document.querySelector('.grid'); //Grid button
+gridBtn.addEventListener('click', toggleGrid);
+
 const resetBtn = document.querySelector('.reset'); //Reset button
 const gridBoard = document.querySelectorAll('.gridBlock');
 resetBtn.addEventListener('click', resetButton);
@@ -40,7 +43,7 @@ function createGridBoard(gridSize){ //Create grid board with range slider value
     }
 }
 
-function deleteGridBoard(){
+function deleteGridBoard(){ //Delete grid board with function found on stackoverflow
     while (container.firstChild) {
         container.removeChild(container.lastChild);
     }
@@ -66,14 +69,26 @@ function changeColor(e){
     else e.target.style.backgroundColor = 'black';
 }
 
-function resetButton(){
+function resetButton(){ //Toggle reset button
     gridBoard.forEach(grid => grid.style.backgroundColor = 'white');
     count = 0;
 }
 
-function toggleRainbow(){
+function toggleRainbow(){ //Toggle rainbow button
     rainbowBtn.classList.toggle('rainbowOn');
     (rainbowBtn.classList.contains('rainbowOn'))?
     rainbowBtn.textContent = "Rainbow: On" :
     rainbowBtn.textContent = "Rainbow: Off";
+}
+
+function toggleGrid(){ //Toggle grid button
+    gridBtn.classList.toggle('gridOn');
+    if (gridBtn.classList.contains('gridOn')){
+        gridBoard.forEach(gridBlock => gridBlock.style.border = 'solid black 0.3px');
+        gridBtn.textContent = "Grid: On";
+    }
+    else{
+        gridBoard.forEach(gridBlock => gridBlock.style.border = 'none');
+        gridBtn.textContent = "Grid: Off";
+    }
 }

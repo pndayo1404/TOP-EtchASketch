@@ -50,20 +50,10 @@ html{
     background-color: #8B7E74;
     color: #fff;
     border-radius: 8px;
-    height: 73.5%;
+    height: 85%;
     gap: 32px;
 }
-.rainbow{
-    padding: 8px;
-    cursor: pointer;
-    font-family: 'Nerko One', cursive;
-    background-color: #C7BCA1;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 20px;
-}
-.reset{
+.menuBarBtn{
     padding: 8px;
     cursor: pointer;
     font-family: 'Nerko One', cursive;
