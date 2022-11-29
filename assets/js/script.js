@@ -14,11 +14,13 @@ let mousedown = false;
 document.body.addEventListener("mousedown", () => (mousedown = true));
 document.body.addEventListener("mouseup", () => (mousedown = false));
 
-resetButton();
+// resetButton();
 
 const rainbowBtn = document.querySelector('.rainbow');
+const resetBtn = document.querySelector('.reset');
+const gridBoard = document.querySelectorAll('.gridBlock');
 rainbowBtn.addEventListener('click', toggleRainbow);
-
+resetBtn.addEventListener('click', resetButton);
 function createGridBoard(gridSize){
     for (let i = 0; i < gridSize; i++){
         let divRow = document.createElement('div');
@@ -33,7 +35,7 @@ function createGridBoard(gridSize){
         }
         container.appendChild(divRow);
     }
-    resetButton();  
+    // resetButton();  
 }
 
 function deleteGridBoard(){
@@ -41,24 +43,30 @@ function deleteGridBoard(){
         container.removeChild(container.lastChild);
     }
 }
-
+let count = 0;
+function getColor(count, e){ //Color get 10% darker every time a grid is drawed
+    let red = Math.ceil(Math.random()*256) - count*25.5; if (red < 0) red = 0;
+    let green = Math.ceil(Math.random()*256) - count*25.5; if (green < 0) green = 0;
+    let blue = Math.ceil(Math.random()*256) - count*25.5; if (blue < 0) blue = 0;
+    e.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+    console.log(red);
+    console.log(green);
+    console.log(blue);
+}
 function changeColor(e){
     if (e.type == 'mouseover' && !mousedown) return; //Logic to draw while mouse down
     if (rainbowBtn.classList.contains('rainbowOn')) { //Rainbow logic
-        let red = Math.ceil(Math.random()*256);
-        let green = Math.ceil(Math.random()*256);
-        let blue = Math.ceil(Math.random()*256);
-        e.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        getColor(count, e);
+        count += 1;
+        if (count == 10) count = 0;
+        console.log(count);
     }
     else e.target.style.backgroundColor = 'black';
 }
 
 function resetButton(){
-    const resetBtn = document.querySelector('.reset');
-    const gridBoard = document.querySelectorAll('.gridBlock');
-    resetBtn.addEventListener('click', function(e){
-        gridBoard.forEach(grid => grid.style.backgroundColor = 'white');
-    })
+    gridBoard.forEach(grid => grid.style.backgroundColor = 'white');
+    count = 0;
 }
 
 function toggleRainbow(){
