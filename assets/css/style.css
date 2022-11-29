@@ -19,7 +19,7 @@ html{
     text-align: center;
     color: #fff;
     font-size: 60px;
-    
+    user-select: none;
 }
 .outerContainer{
     display: flex;
