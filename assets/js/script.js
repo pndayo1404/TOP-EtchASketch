@@ -43,9 +43,8 @@ function deleteGridBoard(){
 }
 
 function changeColor(e){
-    // console.log(mousedown);
-    if (e.type == 'mouseover' && !mousedown) return;
-    if (rainbowBtn.classList.contains('rainbowOn')) {
+    if (e.type == 'mouseover' && !mousedown) return; //Logic to draw while mouse down
+    if (rainbowBtn.classList.contains('rainbowOn')) { //Rainbow logic
         let red = Math.ceil(Math.random()*256);
         let green = Math.ceil(Math.random()*256);
         let blue = Math.ceil(Math.random()*256);
