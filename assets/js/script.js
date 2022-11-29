@@ -1,8 +1,9 @@
 let slider = document.querySelector('.slider'); //Create slider and change slider value on mousemove
 let sliderValue = document.querySelectorAll('.sliderValue');
 let gridSize = slider.value;
+let count = 0;
 
-const container = document.querySelector('.container'); 
+const container = document.querySelector('.container'); //Create the first grid board
 createGridBoard(gridSize);
 slider.addEventListener('input', function(e){
     sliderValue.forEach(textValue => textValue.textContent = slider.value);
@@ -10,18 +11,20 @@ slider.addEventListener('input', function(e){
     deleteGridBoard();  
     createGridBoard(gridSize);  
 })
-let mousedown = false;
+
+let mousedown = false; //Logic to simulate mouse holding action
 document.body.addEventListener("mousedown", () => (mousedown = true));
 document.body.addEventListener("mouseup", () => (mousedown = false));
 
-// resetButton();
 
-const rainbowBtn = document.querySelector('.rainbow');
-const resetBtn = document.querySelector('.reset');
-const gridBoard = document.querySelectorAll('.gridBlock');
+const rainbowBtn = document.querySelector('.rainbow'); //Rainbow button
 rainbowBtn.addEventListener('click', toggleRainbow);
+
+const resetBtn = document.querySelector('.reset'); //Reset button
+const gridBoard = document.querySelectorAll('.gridBlock');
 resetBtn.addEventListener('click', resetButton);
-function createGridBoard(gridSize){
+
+function createGridBoard(gridSize){ //Create grid board with range slider value
     for (let i = 0; i < gridSize; i++){
         let divRow = document.createElement('div');
         divRow.style.display = 'flex';
@@ -35,7 +38,6 @@ function createGridBoard(gridSize){
         }
         container.appendChild(divRow);
     }
-    // resetButton();  
 }
 
 function deleteGridBoard(){
@@ -43,7 +45,7 @@ function deleteGridBoard(){
         container.removeChild(container.lastChild);
     }
 }
-let count = 0;
+
 function getColor(count, e){ //Color get 10% darker every time a grid is drawed
     let red = Math.ceil(Math.random()*256) - count*25.5; if (red < 0) red = 0;
     let green = Math.ceil(Math.random()*256) - count*25.5; if (green < 0) green = 0;
